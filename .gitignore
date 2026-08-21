@@ -1,0 +1,11 @@
+target/
+.mvn/wrapper/maven-wrapper.jar
+build/
+.gradle/
+.idea/
+*.iml
+.vscode/
+.DS_Store
+application-local.properties
+application-local.yml
+*.env
