@@ -1,10 +1,45 @@
 package com.example.studentmanagement.controller;
-import com.example.studentmanagement.entity.Student; import com.example.studentmanagement.service.StudentService; import org.springframework.http.HttpStatus; import org.springframework.web.bind.annotation.*; import java.util.List;
-@RestController @RequestMapping("/api/students") @CrossOrigin(origins="http://localhost:4200")
+
+import com.example.studentmanagement.entity.Student;
+import com.example.studentmanagement.service.StudentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/students")
+@CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
-private final StudentService service; public StudentController(StudentService service){this.service=service;}
-@GetMapping public List<Student> all(){return service.getAll();} @GetMapping("/{id}") public Student one(@PathVariable Long id){return service.get(id);}
-@PostMapping @ResponseStatus(HttpStatus.CREATED) public Student create(@RequestBody Student s){return service.create(s);}
-@PutMapping("/{id}") public Student update(@PathVariable Long id,@RequestBody Student s){return service.update(id,s);}
-@DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT) public void delete(@PathVariable Long id){service.delete(id);}
+	private final StudentService service;
+
+	public StudentController(StudentService service) {
+		this.service = service;
+	}
+
+	@GetMapping
+	public List<Student> all() {
+		return service.getAll();
+	}
+
+	@GetMapping("/{id}")
+	public Student one(@PathVariable Long id) {
+		return service.get(id);
+	}
+
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public Student create(@RequestBody Student s) {
+		return service.create(s);
+	}
+
+	@PutMapping("/{id}")
+	public Student update(@PathVariable Long id, @RequestBody Student s) {
+		return service.update(id, s);
+	}
+
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable Long id) {
+		service.delete(id);
+	}
 }
