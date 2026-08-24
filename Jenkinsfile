@@ -6,12 +6,13 @@ pipeline {
         IMAGE_NAME = "student-management-backend"
         IMAGE_TAG  = "latest"
         CONTAINER_NAME = "student-management-backend"
-        APP_PORT = "8081"   // host port to expose the app on
+        HOST_PORT = "8082"       // port on your machine you'll browse to (8080 is taken by Jenkins)
+        CONTAINER_PORT = "8081"  // port the app listens on INSIDE the container (matches server.port)
     }
 
     tools {
         maven 'Maven3'   // must match the name configured in Manage Jenkins > Tools
-        jdk 'JDK17'      // must match the name configured in Manage Jenkins > Tools
+        jdk 'JDK21'      // must match the name configured in Manage Jenkins > Tools
     }
 
     stages {
@@ -52,7 +53,7 @@ pipeline {
                 sh """
                     docker stop ${CONTAINER_NAME} || true
                     docker rm ${CONTAINER_NAME} || true
-                    docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:${APP_PORT} ${IMAGE_NAME}:${IMAGE_TAG}
+                    docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:${IMAGE_TAG}
                 """
             }
         }
